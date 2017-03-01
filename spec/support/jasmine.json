@@ -6,6 +6,10 @@
   "helpers": [
     "helpers/**/*.js"
   ],
+  "jasmineNodeOpts":{
+    "showColors":true,
+    "isVerbose": true
+  },
   "stopSpecOnExpectationFailure": false,
   "random": false
 }
