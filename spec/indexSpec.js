@@ -1,4 +1,5 @@
 describe('Time returning functions', function() {
+	var timeObject = require('../index.js')
   var getCurrentSeconds = require('../index.js').getCurrentSeconds;
   var date = new Date()  ;
   var seconds = date.getSeconds();
@@ -12,4 +13,13 @@ describe('Time returning functions', function() {
     var timeNow = setTimeout(getCurrentSeconds, 2000);
     expect(timeNow).not.toBe(initialTime);
   })
+	it('The function should create a DOM Element',function() {
+		var createStopWatch = timeObject.createStopWatch;
+		var element = createStopWatch();
+		expect(element).toBe(<div></div>)	
+	})
+	it('Should update the DOM with our current time',function() {
+		var initialTime = getInitialTime();
+		
+	})
 })
