@@ -1,0 +1,36 @@
+/* RESET */
+
+* {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body,
+ul,
+li,
+figure,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* Ensure images don't overflow containers */
+img {
+  max-width: 100%
+  height: auto;
+}
+
+/* Ensure inputs are consistently styled cross-browser */
+input {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+}
