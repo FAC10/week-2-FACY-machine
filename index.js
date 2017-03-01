@@ -2,12 +2,15 @@ function getCurrentSeconds() {
   var date = new Date();
   return date.getSeconds();
 }
-function setsInitialTime(fun) {
-	console.log('hello');
-	return 'hello'
-}
+
+var getInitialTime = function() {
+  var initialTime = getCurrentSeconds();
+  return function() {
+    return initialTime;
+  }
+}();
 
 module.exports = {
 	getCurrentSeconds,
-	setsInitialTime
+  getInitialTime,
 }
