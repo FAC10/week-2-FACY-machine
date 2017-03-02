@@ -1,7 +1,6 @@
 //Time generating functions
 function getCurrentTime() {
-    var date = new Date();
-    return date.getTime();
+    return Date.now();
 }
 
 var getElapsedTime = function() {
@@ -67,24 +66,14 @@ function updateDom(id, mins, seconds, milliseconds) {
     timeElement.innerText = `${mins}:${seconds}:${milliseconds}`;
 }
 
-//Cannot update the DOM
-// function checkDomUpdated(id) {
-//     //If the DOM is updated return a boolean value
-//     var el = document.getElementById(id)
-//     console.log(el);
-//     if (el) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-document.getElementById('js-start').addEventListener('click', startAnimation);
+(function addStartListener() {
+    var startButton = document.getElementById('js-start');
+    startButton.addEventListener('click', startAnimation);
+}());
 
 module.exports = {
     getCurrentTime,
     getElapsedTime,
-    createDomElement,
     togglePause,
     updateDom
 }
