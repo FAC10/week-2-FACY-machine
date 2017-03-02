@@ -14,6 +14,10 @@ describe('Time returning functions', function() {
         var timeNow = setTimeout(getCurrentSeconds, 2000);
         expect(timeNow).not.toBe(initialTime);
     })
+})
+
+describe('Updating DOM functions', function() {
+    var stopwatch = require('../index.js')
     // We cannot test the DOM as in testing the framework
     it('The function should create a DOM Element', function() {
         var createDomElement = stopwatch.createDomElement;
@@ -23,5 +27,12 @@ describe('Time returning functions', function() {
     it('Should update the DOM with our current time', function() {
         var initialTime = stopwatch.getInitialTime();
 
+    })
+    var togglePause = stopwatch.togglePause;
+    it('Should return a function to ensure we close over the variable', function() {
+        expect(typeof togglePause()).toBe('function');
+    })
+    it('Should return a boolean', function() {
+        expect(togglePause(false)()).toBe(true);
     })
 })
