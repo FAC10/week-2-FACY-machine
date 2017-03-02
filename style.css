@@ -34,3 +34,11 @@ input {
   font-family: inherit;
   color: inherit;
 }
+
+.clock__number::before {
+    content: ':';
+}
+
+.clock__number--first::before {
+    content: '';
+}
