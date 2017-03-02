@@ -37,8 +37,17 @@ function checkDomUpdated(id) {
     }
 }
 
+var togglePause = function(bool) {
+    var isPaused = bool;
+    isPaused = !isPaused;
+    return function() {
+        return isPaused;
+    }
+}
+
 module.exports = {
     getCurrentSeconds,
     getInitialTime,
-    createDomElement
+    createDomElement,
+    togglePause,
 }
