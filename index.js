@@ -11,10 +11,41 @@ var getElapsedTime = function() {
     }
 }();
 
+
+function mins(elapsedTime) {
+    var mins = Math.floor(elapsedTime / (1000 * 60))
+
+    if (mins>=60) {
+        mins = mins%60;
+    }
+    if (mins<10) {
+     return '0'+ mins;
+    }
+    return mins;
+}
+
+function seconds(elapsedTime) {
+    var seconds = Math.floor(elapsedTime / 1000);
+    if (seconds>=60) {
+        seconds = seconds%60;
+    }
+    if (seconds<10) {
+     return '0'+ seconds;
+    }
+    return seconds
+}
+
+function milliseconds(elapsedTime) {
+    var milliseconds = (elapsedTime.toString()).slice(-2)
+    return milliseconds
+}
+
+
+
 //Drawing functions
 function drawClock() {
     var elapsedTime = getElapsedTime()
-    updateDom('app', elapsedTime);
+    updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), milliseconds(elapsedTime));
     var FrameID = requestAnimationFrame(drawClock)
 
 }
@@ -40,11 +71,11 @@ function createDomElement(element) {
     return document.createElement(element);
 }
 
-function updateDom(id, elapsedTime) {
-    //Check to see if the element to which we are appending our newly created
+function updateDom(id, mins, seconds, milliseconds) {
+    //Check to see if the element to which we are js-numberending our newly created
     //element exists
-    var timeElement = document.querySelector('#app');
-    timeElement.innerText = elapsedTime;
+    var timeElement = document.querySelector('#js-number');
+    timeElement.innerText = `${mins}:${seconds}:${milliseconds}`;
 }
 
 
