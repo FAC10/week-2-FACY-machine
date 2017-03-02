@@ -1,7 +1,6 @@
 //Time generating functions
 function getCurrentTime() {
-    var date = new Date();
-    return date.getTime();
+    return Date.now();
 }
 
 var getElapsedTime = function() {
@@ -11,38 +10,45 @@ var getElapsedTime = function() {
     }
 }();
 
+// Returns the correct number of minutes
 function mins(elapsedTime) {
     var mins = Math.floor(elapsedTime / (1000 * 60))
-
+    // Ensures minutes never go above 60
     if (mins >= 60) {
         mins = mins % 60;
     }
+    // Pads the number with 0
     if (mins < 10) {
         return '0' + mins;
     }
     return mins;
 }
 
+// Returns the correct number of seconds
 function seconds(elapsedTime) {
     var seconds = Math.floor(elapsedTime / 1000);
+    // Ensures minutes never go above 60
     if (seconds >= 60) {
         seconds = seconds % 60;
     }
+    // Pads the number with 0
     if (seconds < 10) {
         return '0' + seconds;
     }
     return seconds
 }
 
-function milliseconds(elapsedTime) {
-    var milliseconds = (elapsedTime.toString()).slice(-3, -1);
-    return milliseconds
+// Returns the correct number of minutes
+function deciseconds(elapsedTime) {
+    // Returns just the 3rd last and 2nd last digits
+    var deciseconds = (elapsedTime.toString()).slice(-3, -1);
+    return deciseconds
 }
 
 //Drawing functions
 function drawClock() {
     var elapsedTime = getElapsedTime()
-    updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), milliseconds(elapsedTime));
+    updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), deciseconds(elapsedTime));
     var FrameID = requestAnimationFrame(drawClock)
 
 }
@@ -60,36 +66,19 @@ var togglePause = function(bool) {
     }
 }
 
-//DOM Manipulation and checking functions
-function createDomElement(element) {
-    return document.createElement(element);
-}
-
-function updateDom(id, mins, seconds, milliseconds) {
+function updateDom(id, mins, seconds, deciseconds) {
     //Check to see if the element to which we are js-numberending our newly created
     //element exists
     var timeElement = document.querySelector('#js-number');
-    timeElement.innerText = `${mins}:${seconds}:${milliseconds}`;
-}
-
-//Cannot update the DOM
-// function checkDomUpdated(id) {
-//     //If the DOM is updated return a boolean value
-//     var el = document.getElementById(id)
-//     console.log(el);
-//     if (el) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-document.getElementById('js-start').addEventListener('click', startAnimation);
+    timeElement.innerText = `${mins}:${seconds}:${deciseconds}`;
+}(function addStartListener() {
+    var startButton = document.getElementById('js-start');
+    startButton.addEventListener('click', startAnimation);
+}());
 
 module.exports = {
     getCurrentTime,
     getElapsedTime,
-    createDomElement,
     togglePause,
     updateDom
 }
