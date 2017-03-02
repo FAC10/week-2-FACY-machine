@@ -60,11 +60,6 @@ var togglePause = function(bool) {
     }
 }
 
-//DOM Manipulation and checking functions
-function createDomElement(element) {
-    return document.createElement(element);
-}
-
 function updateDom(id, mins, seconds, milliseconds) {
     //Check to see if the element to which we are js-numberending our newly created
     //element exists
