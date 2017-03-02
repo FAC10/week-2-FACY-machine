@@ -3,22 +3,39 @@ function getCurrentTime() {
     return Date.now();
 }
 
-var getElapsedTime = function() {
+var time = function() {
     var initialTime = getCurrentTime();
-    return function() {
-        return getCurrentTime() - initialTime;
+    return {
+        getElapsedTime: function getElapsedTime() {
+            var elapsedTime = getCurrentTime() - initialTime;
+            return elapsedTime;
+        },
+        resetTime: function resetTime() {
+            initialTime = getCurrentTime();
+            return initialTime;
+        },
     }
-}();
+};
 
 //Drawing functions
-function drawClock() {
-    var elapsedTime = getElapsedTime()
+// var myTime = time();
+function drawClock(id, myTime) {
+    var elapsedTime = myTime.getElapsedTime();
     updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), deciseconds(elapsedTime));
-    var frameID = requestAnimationFrame(drawClock)
+    // Creates a global variable: FIX THIS
+    frameID = requestAnimationFrame(function() {
+        drawClock(null, myTime);
+    });
 }
 
-function startAnimation(argument) {
-    requestAnimationFrame(drawClock)
+function startAnimation(myTime) {
+    requestAnimationFrame(function() {
+        drawClock(null, myTime);
+    });
+}
+
+function pauseAnimation(frameID) {
+    cancelAnimationFrame(frameID);
 }
 
 // Updates the parent element with the correct time
@@ -28,9 +45,17 @@ function updateDom(id, mins, seconds, deciseconds) {
 }
 
 // IIFE adds click event handler to start button
-(function addStartListener() {
+(function addListeners() {
     var startButton = document.getElementById('js-start');
-    startButton.addEventListener('click', startAnimation);
+    var pauseButton = document.getElementById('js-pause');
+    startButton.addEventListener('click', function() {
+        // Calling time() in here creates a new closure every time, which means the timer resets whenever you click this.
+        // No idea how to fix :(
+        startAnimation(time());
+    });
+    pauseButton.addEventListener('click', function() {
+        pauseAnimation(frameID);
+    });
 }());
 
 // Returns the correct number of minutes
@@ -69,16 +94,15 @@ function deciseconds(elapsedTime) {
 }
 
 //Stop and Start functions
-var togglePause = function(bool) {
-    var isPaused = bool;
-    isPaused = !isPaused;
-    return function() {
-        return isPaused;
-    }
-}
+// var togglePause = function(bool) {
+//     var isPaused = bool;
+//     isPaused = !isPaused;
+//     return function() {
+//         return isPaused;
+//     }
+// }
 
 module.exports = {
     getCurrentTime,
     getElapsedTime,
-    togglePause,
 }
