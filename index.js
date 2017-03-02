@@ -14,21 +14,27 @@ function createDomElement(element) {
 	return document.createElement(element);
 }
 
-function domUpdated(element, id, parent) {
+function updateDom(element, id, parent) {
 	//Check to see if the element to which we are appending our newly created
 	//element exists
 	parent = parent || document.body
 	var child = createDomElement(element);
 	child.id = id;
-	if (document.querySelector(parent)) {
+	if (document.querySelector('body')) {
 		parent.appendChild(child);
 	}
-	checkDomUpdated(id);
+	return checkDomUpdated(id);
 }
 
 function checkDomUpdated(id) {
 	//If the DOM is updated return a boolean value
-	document.getElementById(id) ? true : false;
+	var el = document.getElementById(id)
+	console.log(el);
+	if (el) {
+		return true;
+	} else {
+		return false;	
+	}
 }
 
 module.exports = {
