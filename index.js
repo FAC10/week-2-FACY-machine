@@ -11,36 +11,33 @@ var getElapsedTime = function() {
     }
 }();
 
-
 function mins(elapsedTime) {
     var mins = Math.floor(elapsedTime / (1000 * 60))
 
-    if (mins>=60) {
-        mins = mins%60;
+    if (mins >= 60) {
+        mins = mins % 60;
     }
-    if (mins<10) {
-     return '0'+ mins;
+    if (mins < 10) {
+        return '0' + mins;
     }
     return mins;
 }
 
 function seconds(elapsedTime) {
     var seconds = Math.floor(elapsedTime / 1000);
-    if (seconds>=60) {
-        seconds = seconds%60;
+    if (seconds >= 60) {
+        seconds = seconds % 60;
     }
-    if (seconds<10) {
-     return '0'+ seconds;
+    if (seconds < 10) {
+        return '0' + seconds;
     }
     return seconds
 }
 
 function milliseconds(elapsedTime) {
-    var milliseconds = (elapsedTime.toString()).slice(-2)
+    var milliseconds = (elapsedTime.toString()).slice(-3, -1);
     return milliseconds
 }
-
-
 
 //Drawing functions
 function drawClock() {
@@ -53,9 +50,6 @@ function drawClock() {
 function startAnimation(argument) {
     requestAnimationFrame(drawClock)
 }
-
-
-
 
 //Stop and Start functions
 var togglePause = function(bool) {
@@ -78,10 +72,6 @@ function updateDom(id, mins, seconds, milliseconds) {
     timeElement.innerText = `${mins}:${seconds}:${milliseconds}`;
 }
 
-
-
-
-
 //Cannot update the DOM
 // function checkDomUpdated(id) {
 //     //If the DOM is updated return a boolean value
@@ -94,12 +84,12 @@ function updateDom(id, mins, seconds, milliseconds) {
 //     }
 // }
 
+document.getElementById('js-start').addEventListener('click', startAnimation);
 
 module.exports = {
     getCurrentTime,
     getElapsedTime,
     createDomElement,
     togglePause,
-    updateDom,
+    updateDom
 }
-
