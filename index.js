@@ -1,4 +1,4 @@
-//Time generating functions
+// Returns the current UNIX time in milliseconds
 function getCurrentTime() {
     return Date.now();
 }
@@ -9,6 +9,29 @@ var getElapsedTime = function() {
         return getCurrentTime() - initialTime;
     }
 }();
+
+//Drawing functions
+function drawClock() {
+    var elapsedTime = getElapsedTime()
+    updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), deciseconds(elapsedTime));
+    var frameID = requestAnimationFrame(drawClock)
+}
+
+function startAnimation(argument) {
+    requestAnimationFrame(drawClock)
+}
+
+// Updates the parent element with the correct time
+function updateDom(id, mins, seconds, deciseconds) {
+    var parent = document.getElementById(id);
+    parent.innerText = `${mins}:${seconds}:${deciseconds}`;
+}
+
+// IIFE adds click event handler to start button
+(function addStartListener() {
+    var startButton = document.getElementById('js-start');
+    startButton.addEventListener('click', startAnimation);
+}());
 
 // Returns the correct number of minutes
 function mins(elapsedTime) {
@@ -45,18 +68,6 @@ function deciseconds(elapsedTime) {
     return deciseconds
 }
 
-//Drawing functions
-function drawClock() {
-    var elapsedTime = getElapsedTime()
-    updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), deciseconds(elapsedTime));
-    var FrameID = requestAnimationFrame(drawClock)
-
-}
-
-function startAnimation(argument) {
-    requestAnimationFrame(drawClock)
-}
-
 //Stop and Start functions
 var togglePause = function(bool) {
     var isPaused = bool;
@@ -66,19 +77,8 @@ var togglePause = function(bool) {
     }
 }
 
-function updateDom(id, mins, seconds, deciseconds) {
-    //Check to see if the element to which we are js-numberending our newly created
-    //element exists
-    var timeElement = document.querySelector('#js-number');
-    timeElement.innerText = `${mins}:${seconds}:${deciseconds}`;
-}(function addStartListener() {
-    var startButton = document.getElementById('js-start');
-    startButton.addEventListener('click', startAnimation);
-}());
-
 module.exports = {
     getCurrentTime,
     getElapsedTime,
     togglePause,
-    updateDom
 }
