@@ -84,17 +84,10 @@ body {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     font-size: 2em;
+    font-family: Monaco, Inconsolata, monospace;
     text-align: center;
     color: #c31313;
     background-color: black;
-}
-
-.clock__number::before {
-    content: ': ';
-}
-
-.clock__number--first::before {
-    content: '';
 }
 
 @media (min-width: 42em) {
