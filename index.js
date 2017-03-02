@@ -1,42 +1,32 @@
-function getCurrentSeconds() {
+//Time generating functions
+function getCurrentTime() {
     var date = new Date();
-    return date.getSeconds();
+    return date.getTime();
 }
 
-var getInitialTime = function() {
-    var initialTime = getCurrentSeconds();
+var getElapsedTime = function() {
+    var initialTime = getCurrentTime();
     return function() {
-        return initialTime;
+        return getCurrentTime() - initialTime;
     }
 }();
 
-function createDomElement(element) {
-    return document.createElement(element);
+//Drawing functions
+function drawClock() {
+    var elapsedTime = getElapsedTime()
+    updateDom('app', elapsedTime);
+    var FrameID = requestAnimationFrame(drawClock)
+
 }
 
-function updateDom(element, id, parent) {
-    //Check to see if the element to which we are appending our newly created
-    //element exists
-    parent = parent || document.body
-    var child = createDomElement(element);
-    child.id = id;
-    if (document.querySelector('body')) {
-        parent.appendChild(child);
-    }
-    return checkDomUpdated(id);
+function startAnimation(argument) {
+    requestAnimationFrame(drawClock)
 }
 
-function checkDomUpdated(id) {
-    //If the DOM is updated return a boolean value
-    var el = document.getElementById(id)
-    console.log(el);
-    if (el) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
+
+
+//Stop and Start functions
 var togglePause = function(bool) {
     var isPaused = bool;
     isPaused = !isPaused;
@@ -45,9 +35,40 @@ var togglePause = function(bool) {
     }
 }
 
+//DOM Manipulation and checking functions
+function createDomElement(element) {
+    return document.createElement(element);
+}
+
+function updateDom(id, elapsedTime) {
+    //Check to see if the element to which we are appending our newly created
+    //element exists
+    var timeElement = document.querySelector('#app');
+    timeElement.innerText = elapsedTime;
+}
+
+
+
+
+
+//Cannot update the DOM
+// function checkDomUpdated(id) {
+//     //If the DOM is updated return a boolean value
+//     var el = document.getElementById(id)
+//     console.log(el);
+//     if (el) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
+
 module.exports = {
-    getCurrentSeconds,
-    getInitialTime,
+    getCurrentTime,
+    getElapsedTime,
     createDomElement,
     togglePause,
+    updateDom,
 }
+
