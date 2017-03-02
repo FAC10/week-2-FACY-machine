@@ -54,34 +54,34 @@ var ourTime = function() {
     }
 }()
 
-function drawClock(){
+function drawClock() {
 
-  var clock = new Date().getSeconds()
-  console.log(clock)
-  var FrameID = requestAnimationFrame(drawClock)
+    var clock = new Date().getSeconds()
+    console.log(clock)
+    var FrameID = requestAnimationFrame(drawClock)
 
-  if (pause(toggleBool())()){
-    cancelAnimationFrame(FrameID);
-  }
+    if (pause(toggleBool())()) {
+        cancelAnimationFrame(FrameID);
+    }
 }
 
 requestAnimationFrame(drawClock);
 
 
 
-function toggleBool(){
-  var stuff = true
-  return stuff
+function toggleBool() {
+    var stuff = true
+    return stuff
 }
 
 
-var pause = function(paused){
-  var isPaused = paused
-  isPaused = !isPaused
+var pause = function(paused) {
+    var isPaused = paused
+    isPaused = !isPaused
 
-  return function(){
-    return isPaused
-  }
+    return function() {
+        return isPaused
+    }
 }
 
 //Modules are exported to Jasmine here as props on an object
