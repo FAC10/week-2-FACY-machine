@@ -8,6 +8,13 @@ describe('Time returning functions', function() {
         var result = getCurrentTime();
         expect(typeof result).toBe('number');
     })
+
+    // it('Should test that if minutes the return value is a double digit less than 60',function() {
+    //     //This coerces mins which is a number to a string
+    //     // var mins = ''+stopwatch.getCurrentTime(mins)
+    //     expect(mins.length).toBe(2)
+    //     expect(Number( mins )).toBeLessThan(60)
+    // })
     it('Closure should have old value for initialTime', function() {
         var getElapsedTime = stopwatch.getElapsedTime;
         var initialTime = getElapsedTime();
