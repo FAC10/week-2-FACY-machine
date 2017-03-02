@@ -50,6 +50,7 @@ function updateDom(id, mins, seconds, deciseconds) {
     var pauseButton = document.getElementById('js-pause');
     startButton.addEventListener('click', function() {
         // Calling time() in here creates a new closure every time, which means the timer resets whenever you click this.
+        // Also each click starts a new animationFrame, so you have to click Pause the same number of times to actually get it to pause...
         // No idea how to fix :(
         startAnimation(time());
     });
