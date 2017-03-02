@@ -1,31 +1,31 @@
 describe('Time returning functions', function() {
     var stopwatch = require('../index.js')
-    var getCurrentSeconds = require('../index.js').getCurrentSeconds;
+    var getCurrentTime = stopwatch.getCurrentTime;
     var date = new Date();
     var seconds = date.getSeconds();
 
-    it('Should return current seconds', function() {
-        var result = getCurrentSeconds();
-        expect(result).toEqual(seconds);
+    it('Should return a number', function() {
+        var result = getCurrentTime();
+        expect(typeof result).toBe('number');
     })
     it('Closure should have old value for initialTime', function() {
-        var getInitialTime = stopwatch.getInitialTime;
-        var initialTime = getInitialTime();
-        var timeNow = setTimeout(getCurrentSeconds, 2000);
+        var getElapsedTime = stopwatch.getElapsedTime;
+        var initialTime = getElapsedTime();
+        var timeNow = setTimeout(getCurrentTime, 2000);
         expect(timeNow).not.toBe(initialTime);
     })
 })
 
 describe('Updating DOM functions', function() {
     var stopwatch = require('../index.js')
-    // We cannot test the DOM as in testing the framework
-    it('The function should create a DOM Element', function() {
-        var createDomElement = stopwatch.createDomElement;
-        var element = "div"
-        expect(createDomElement(element)).toBe(`<${element}></${element}>`)
-    })
+    //This test does not work as we canno test the DOM as Jasmine runs on node
+    //which has no DOM
+    // it('Should return true if the element to the dom',function() {
+    //     var updateDom = stopwatch.updateDom
+    //     expect(updateDom('p','name')).toBe(true);
+    // })
     it('Should update the DOM with our current time', function() {
-        var initialTime = stopwatch.getInitialTime();
+        var initialTime = stopwatch.getElapsedTime();
 
     })
     var togglePause = stopwatch.togglePause;
