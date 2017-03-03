@@ -15,11 +15,13 @@ var timer = function() {
             var elapsedTime = getCurrentTime() - initialTime;
             return elapsedTime;
         },
+        // Not using right now
         startTimer: function startTimer() {
             if (isRunning) return;
             isRunning = true;
             startTime = getCurrentTime() - passedTime;
         },
+        // Not using right now
         updateTime: function updateTime() {
             passedTime = getCurrentTime() - startTime;
             updateDom('js-number',
