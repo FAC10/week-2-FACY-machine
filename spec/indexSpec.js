@@ -1,5 +1,7 @@
 var stopwatch = require('../index.js');
-
+//Jasmine uses the 'describe' and 'it' syntax the describe block is similar to
+//a QUnit Module it describes what the following test within the block should
+//do.
 
 describe('Time returning functions', function() {
     var getCurrentTime = stopwatch.getCurrentTime;
