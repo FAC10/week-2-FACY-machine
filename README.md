@@ -1,5 +1,5 @@
 # fncY Machine
-
+![Picture of Jeff Goldblum](appifiying-wordpress-practical-tips-for-using-wordpress-as-a10286951.jpg)
 ## Initial project set-up
 1. `npm init` - To create a package.json file to specify project dependencies and define commands for easily running scripts (e.g. for testing).
 
