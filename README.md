@@ -1,7 +1,10 @@
 # fncY Machine
 ![Picture of Jeff Goldblum](appifiying-wordpress-practical-tips-for-using-wordpress-as-a10286951.jpg)
+
+Run `npm start`, run `npm test` to test.
 ## Initial project set-up
 1. `npm init` - To create a package.json file to specify project dependencies and define commands for easily running scripts (e.g. for testing).
+
 
 ## Jasmine for testing
 [Jasmine](https://github.com/jasmine/jasmine-npm) is a popular testing framework that allows for both unit and integration testing.
