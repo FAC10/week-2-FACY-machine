@@ -1,5 +1,5 @@
 # fncY Machine
-![Picture of Jeff Goldblum](appifiying-wordpress-practical-tips-for-using-wordpress-as-a10286951.jpg)
+![Picture of Jeff Goldblum](./images/jeff-goldblum.jpg)
 
 Run `npm start` to start.
 
