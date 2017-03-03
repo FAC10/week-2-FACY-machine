@@ -84,7 +84,7 @@ function updateDom(id, mins, seconds, milliseconds) {
 //     }
 // }
 
-document.getElementById('js-start').addEventListener('click', startAnimation);
+// document.getElementById('js-start').addEventListener('click', startAnimation);
 
 module.exports = {
     getCurrentTime,

@@ -6,6 +6,7 @@
   "scripts": {
     "test-init": "jasmine init",
     "test": "jasmine",
+    "coverage": "istanbul cover ./index.js",
     "start": "browser-sync start --server --no-notify --files '*.html, *.css, *.js'"
   },
   "repository": {
