@@ -46,4 +46,3 @@ describe('Time returning functions', function() {
         expect(result).toBe(23);
     })
 })
-
