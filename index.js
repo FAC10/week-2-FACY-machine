@@ -1,17 +1,17 @@
-//Time generating functions
-//This function is a utiliy function that gets and returns the current time
+// Utility function for returning the current time
 function getCurrentTime() {
-    var date = new Date();
-    return date.getTime();
+    return Date.now();
 }
 
-///////////////////////////////////////////////////////////////////
-//           Elapsed Time counter
-////////////////////////////////////////////////////////////////////
+////////////////////////////////
+//    Elapsed Time counter    //
+////////////////////////////////
 
-// This function is our key one it closes in our initial time at the point of
-// invocation which is immediate it then gets called lower down and at that
-// point a call of get current time will give a different time
+// This function is key - it closes in our initial time at the point of
+// invocation (which is immediate).
+// The return value is a function with access to the time at point of
+// invocation (initialTime). This function is then used to get the
+// amount of time expired since the beginning.
 var getElapsedTime = (function() {
     var initialTime = getCurrentTime();
     return function() {
@@ -19,9 +19,10 @@ var getElapsedTime = (function() {
     }
 }());
 
-///////////////////////////////////////////////////////////////////
-//          Time Conversion Function
-////////////////////////////////////////////////////////////////////
+////////////////////////////////
+//  Time Conversion Function  //
+////////////////////////////////
+
 //These functions convert the elapsed time from milleseconds to the mins,
 //deciseconds and seconds
 function mins(elapsedTime) {
@@ -48,7 +49,7 @@ function seconds(elapsedTime) {
 }
 
 function deciseconds(elapsedTime) {
-    var deciseconds = Math.floor(elapsedTime/100)
+    var deciseconds = Math.floor(elapsedTime / 100)
     if (deciseconds >= 100) {
         deciseconds = deciseconds % 100;
     }
@@ -57,59 +58,51 @@ function deciseconds(elapsedTime) {
     }
     return deciseconds
 }
-///////////////////////////////////////////////////////////////////
-//         Animate the Clock
-////////////////////////////////////////////////////////////////////
-// The following function uses request animation frame a native JS function to
-// redraw our changing time variables (this tries to redraw these at a rate of
-// 60FPS (frames per second)
-//Drawing functions
+////////////////////////////////
+//     Animate the Clock      //
+////////////////////////////////
 
+// The following function uses request animation frame to
+// redraw our changing time variables
 var FrameID;
 function drawClock() {
     var elapsedTime = getElapsedTime()
     updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), deciseconds(elapsedTime));
-    //This function is used recursively i.e. startAnimation is called below
-    //then recalled again within this function
+    //This function is used recursively i.e. startAnimation is called below then recalled again within this function
     FrameID = requestAnimationFrame(drawClock)
-
 }
 
 function startAnimation(argument) {
     requestAnimationFrame(drawClock)
 }
 
-// Stop and Start functions
-var togglePause = function(bool) {
-    var isPaused = bool;
-    isPaused = !isPaused;
-    return function() {
-        return isPaused;
-    }
-}
 //This pauses the animation frame
 function pauseAnimation() {
-   cancelAnimationFrame(FrameID);
+    cancelAnimationFrame(FrameID);
 }
-//This function takes in the id of our clock div and fills it with our time
-//variables
+// Puts the numbers into the DOM
 function updateDom(id, mins, seconds, deciseconds) {
-    //Check to see if the element to which we are js-numberending our newly created
-    //element exists
     var timeElement = document.getElementById(id);
     timeElement.innerText = `${mins}:${seconds}:${deciseconds}`;
 }
 
+// document.getElementById('js-start').addEventListener('click', startAnimation);
+// document.getElementById('js-pause').addEventListener('click', pauseAnimation);
 
-document.getElementById('js-start').addEventListener('click', startAnimation);
-document.getElementById('js-pause').addEventListener('click', pauseAnimation);
+// Stop and Start functions
+// var togglePause = function(bool) {
+//     var isPaused = bool;
+//     isPaused = !isPaused;
+//     return function() {
+//         return isPaused;
+//     }
+// }
 
-//Using Jasmine requires that we export each of our functions as properties of
-//an object which we require/import to be used in Jasmine
+//Using Jasmine requires that we export each of our functions as
+//properties of an object which we require/import to be used in Jasmine
 module.exports = {
     getCurrentTime,
     getElapsedTime,
-    updateDom,
     mins,
     deciseconds,
     seconds
