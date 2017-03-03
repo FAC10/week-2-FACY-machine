@@ -64,12 +64,14 @@ function deciseconds(elapsedTime) {
 // redraw our changing time variables (this tries to redraw these at a rate of
 // 60FPS (frames per second)
 //Drawing functions
+
+var FrameID;
 function drawClock() {
     var elapsedTime = getElapsedTime()
     updateDom('js-number', mins(elapsedTime), seconds(elapsedTime), deciseconds(elapsedTime));
     //This function is used recursively i.e. startAnimation is called below
     //then recalled again within this function
-    var FrameID = requestAnimationFrame(drawClock)
+    FrameID = requestAnimationFrame(drawClock)
 
 }
 
@@ -85,6 +87,10 @@ var togglePause = function(bool) {
         return isPaused;
     }
 }
+//This pauses the animation frame
+function pauseAnimation() {
+   cancelAnimationFrame(FrameID);
+}
 //This function takes in the id of our clock div and fills it with our time
 //variables
 function updateDom(id, mins, seconds, deciseconds) {
@@ -96,6 +102,7 @@ function updateDom(id, mins, seconds, deciseconds) {
 
 
 document.getElementById('js-start').addEventListener('click', startAnimation);
+document.getElementById('js-pause').addEventListener('click', pauseAnimation);
 
 //Using Jasmine requires that we export each of our functions as properties of
 //an object which we require/import to be used in Jasmine
