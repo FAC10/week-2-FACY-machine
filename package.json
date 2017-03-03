@@ -21,6 +21,7 @@
   "homepage": "https://github.com/FAC10/week-2-FACY-machine#readme",
   "devDependencies": {
     "istanbul": "^0.4.5",
+    "browser-sync": "^2.18.8",
     "jasmine": "^2.5.3",
     "jasmine-spec-reporter": "^3.2.0"
   }
