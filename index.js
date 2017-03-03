@@ -3,16 +3,36 @@ function getCurrentTime() {
     return Date.now();
 }
 
-var time = function() {
+var timer = function() {
     var initialTime = getCurrentTime();
+    var passedTime = 0;
+    var startTime;
+    var isRunning = false;
+    var frameID;
+    var updateTime;
     return {
         getElapsedTime: function getElapsedTime() {
             var elapsedTime = getCurrentTime() - initialTime;
             return elapsedTime;
         },
-        resetTime: function resetTime() {
-            initialTime = getCurrentTime();
-            return initialTime;
+        startTimer: function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            startTime = getCurrentTime() - passedTime;
+        },
+        updateTime: function updateTime() {
+            passedTime = getCurrentTime() - startTime;
+            updateDom('js-number',
+                      mins(passedTime),
+                      seconds(passedTime),
+                      deciseconds(passedTime)
+            );
+            frameID = requestAnimationFrame(updateTime);
+        },
+        pauseTime: function pauseTime() {
+            if (!isRunning) return;
+            isRunning = false;
+            cancelAnimationFrame(frameID)
         },
     }
 };
@@ -52,7 +72,7 @@ function updateDom(id, mins, seconds, deciseconds) {
         // Calling time() in here creates a new closure every time, which means the timer resets whenever you click this.
         // Also each click starts a new animationFrame, so you have to click Pause the same number of times to actually get it to pause...
         // No idea how to fix :(
-        startAnimation(time());
+        startAnimation(timer());
     });
     pauseButton.addEventListener('click', function() {
         pauseAnimation(frameID);
